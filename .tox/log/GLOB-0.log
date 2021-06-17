@@ -1,0 +1,47 @@
+action: GLOB, msg: packaging
+cwd: /home/jasschul/github/pyplayonwm
+cmd: /home/jasschul/github/pyplayonwm/venv-pyplayonwm/bin/python3.9 setup.py sdist --formats=zip --dist-dir .tox/dist
+running sdist
+running egg_info
+writing pyplayonwm.egg-info/PKG-INFO
+writing dependency_links to pyplayonwm.egg-info/dependency_links.txt
+writing requirements to pyplayonwm.egg-info/requires.txt
+writing top-level names to pyplayonwm.egg-info/top_level.txt
+adding license file 'LICENSE' (matched pattern 'LICEN[CS]E*')
+reading manifest file 'pyplayonwm.egg-info/SOURCES.txt'
+writing manifest file 'pyplayonwm.egg-info/SOURCES.txt'
+running check
+creating pyplayonwm-0.0.1
+creating pyplayonwm-0.0.1/pyplayonwm
+creating pyplayonwm-0.0.1/pyplayonwm.egg-info
+copying files to pyplayonwm-0.0.1...
+copying LICENSE -> pyplayonwm-0.0.1
+copying README.md -> pyplayonwm-0.0.1
+copying setup.py -> pyplayonwm-0.0.1
+copying pyplayonwm/__init__.py -> pyplayonwm-0.0.1/pyplayonwm
+copying pyplayonwm/_install_handbrake.py -> pyplayonwm-0.0.1/pyplayonwm
+copying pyplayonwm.egg-info/PKG-INFO -> pyplayonwm-0.0.1/pyplayonwm.egg-info
+copying pyplayonwm.egg-info/SOURCES.txt -> pyplayonwm-0.0.1/pyplayonwm.egg-info
+copying pyplayonwm.egg-info/dependency_links.txt -> pyplayonwm-0.0.1/pyplayonwm.egg-info
+copying pyplayonwm.egg-info/requires.txt -> pyplayonwm-0.0.1/pyplayonwm.egg-info
+copying pyplayonwm.egg-info/top_level.txt -> pyplayonwm-0.0.1/pyplayonwm.egg-info
+copying pyplayonwm.egg-info/zip-safe -> pyplayonwm-0.0.1/pyplayonwm.egg-info
+Writing pyplayonwm-0.0.1/setup.cfg
+creating '.tox/dist/pyplayonwm-0.0.1.zip' and adding 'pyplayonwm-0.0.1' to it
+adding 'pyplayonwm-0.0.1'
+adding 'pyplayonwm-0.0.1/pyplayonwm.egg-info'
+adding 'pyplayonwm-0.0.1/pyplayonwm'
+adding 'pyplayonwm-0.0.1/LICENSE'
+adding 'pyplayonwm-0.0.1/README.md'
+adding 'pyplayonwm-0.0.1/setup.cfg'
+adding 'pyplayonwm-0.0.1/setup.py'
+adding 'pyplayonwm-0.0.1/PKG-INFO'
+adding 'pyplayonwm-0.0.1/pyplayonwm.egg-info/top_level.txt'
+adding 'pyplayonwm-0.0.1/pyplayonwm.egg-info/dependency_links.txt'
+adding 'pyplayonwm-0.0.1/pyplayonwm.egg-info/SOURCES.txt'
+adding 'pyplayonwm-0.0.1/pyplayonwm.egg-info/requires.txt'
+adding 'pyplayonwm-0.0.1/pyplayonwm.egg-info/PKG-INFO'
+adding 'pyplayonwm-0.0.1/pyplayonwm.egg-info/zip-safe'
+adding 'pyplayonwm-0.0.1/pyplayonwm/_install_handbrake.py'
+adding 'pyplayonwm-0.0.1/pyplayonwm/__init__.py'
+removing 'pyplayonwm-0.0.1' (and everything under it)

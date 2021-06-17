@@ -1,0 +1,15 @@
+Metadata-Version: 1.1
+Name: pyplayonwm
+Version: 0.0.1
+Summary: package to help remove the playon watermark from a video file with handbrake
+Home-page: https://github.com/theghpythonwizard/pyplayonwm
+Author: Jason Schultheis
+Author-email: pressurechief@outlook.com
+License: MIT
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Test
+Classifier: License :: OSI Approved :: GNU License
+Classifier: Operating System :: OS Independent
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3
