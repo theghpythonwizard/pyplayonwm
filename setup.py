@@ -1,7 +1,8 @@
 from setuptools import setup, find_packages
 
 install_requires = [
-    "requests"
+    "tox==3.23.1",
+    "pytest==6.2.4"
 ]
 
 setup(
