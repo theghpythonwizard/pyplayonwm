@@ -1,14 +1,12 @@
 action: GLOB, msg: packaging
 cwd: /home/jasschul/github/pyplayonwm
-cmd: /home/jasschul/github/pyplayonwm/venv-pyplayonwm/bin/python setup.py sdist --formats=zip --dist-dir /home/jasschul/github/pyplayonwm/.tox/dist
+cmd: /home/jasschul/github/pyplayonwm/venv-pyplayonwm/bin/python setup.py sdist --formats=zip --dist-dir .tox/dist
 running sdist
 running egg_info
-creating pyplayonwm.egg-info
 writing pyplayonwm.egg-info/PKG-INFO
 writing dependency_links to pyplayonwm.egg-info/dependency_links.txt
 writing requirements to pyplayonwm.egg-info/requires.txt
 writing top-level names to pyplayonwm.egg-info/top_level.txt
-writing manifest file 'pyplayonwm.egg-info/SOURCES.txt'
 adding license file 'LICENSE' (matched pattern 'LICEN[CS]E*')
 reading manifest file 'pyplayonwm.egg-info/SOURCES.txt'
 writing manifest file 'pyplayonwm.egg-info/SOURCES.txt'
@@ -19,6 +17,7 @@ creating pyplayonwm-0.0.1/pyplayonwm.egg-info
 copying files to pyplayonwm-0.0.1...
 copying LICENSE -> pyplayonwm-0.0.1
 copying README.md -> pyplayonwm-0.0.1
+copying pyproject.toml -> pyplayonwm-0.0.1
 copying setup.py -> pyplayonwm-0.0.1
 copying pyplayonwm/__init__.py -> pyplayonwm-0.0.1/pyplayonwm
 copying pyplayonwm/_install_handbrake.py -> pyplayonwm-0.0.1/pyplayonwm
@@ -29,13 +28,13 @@ copying pyplayonwm.egg-info/requires.txt -> pyplayonwm-0.0.1/pyplayonwm.egg-info
 copying pyplayonwm.egg-info/top_level.txt -> pyplayonwm-0.0.1/pyplayonwm.egg-info
 copying pyplayonwm.egg-info/zip-safe -> pyplayonwm-0.0.1/pyplayonwm.egg-info
 Writing pyplayonwm-0.0.1/setup.cfg
-creating /home/jasschul/github/pyplayonwm/.tox/dist
-creating '/home/jasschul/github/pyplayonwm/.tox/dist/pyplayonwm-0.0.1.zip' and adding 'pyplayonwm-0.0.1' to it
+creating '.tox/dist/pyplayonwm-0.0.1.zip' and adding 'pyplayonwm-0.0.1' to it
 adding 'pyplayonwm-0.0.1'
 adding 'pyplayonwm-0.0.1/pyplayonwm.egg-info'
 adding 'pyplayonwm-0.0.1/pyplayonwm'
 adding 'pyplayonwm-0.0.1/LICENSE'
 adding 'pyplayonwm-0.0.1/README.md'
+adding 'pyplayonwm-0.0.1/pyproject.toml'
 adding 'pyplayonwm-0.0.1/setup.cfg'
 adding 'pyplayonwm-0.0.1/setup.py'
 adding 'pyplayonwm-0.0.1/PKG-INFO'
