@@ -25,11 +25,5 @@ class HandBrakeInstaller():
         subprocess.Popen(self.apt_repository_cmd).wait()
         subprocess.Popen(self.handbrake_install_cmd).wait()
 
-def main():
-    hb_installer = HandBrakeInstaller()
-    if not hb_installer.handbrake_installed():
-        hb_installer.install_handbrake()
 
-if __name__ == '__main__':
-    main()
 
