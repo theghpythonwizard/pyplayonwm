@@ -31,7 +31,7 @@ class RunHandbrakeCli():
         if not start_time:
             start_time = 5
         if not stop_time:
-            stop_time = self._get_length_in_seconds() - 8
+            stop_time = (self._get_length_in_seconds() - 8) - start_time
         if not quality:
             quality = "22.0"
         command = shlex.split(f"HandBrakeCLI -i \
