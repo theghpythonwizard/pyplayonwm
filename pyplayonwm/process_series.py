@@ -24,7 +24,8 @@ class RunHandbrakeCli():
         cap = EpisodeMetadata(os.path.join(self.fpath,self.ename))
         return cap._episode_duration()
 
-    def _generate_hb_command(self, start_time=0, stop_time=0, quality=0):
+    def _generate_hb_command(self, start_time=0, stop_time=0, quality=0,
+                             audio_encoder="", gain=0):
         self.ename = self.ename.replace("'","\'")
         input_path = os.path.join(self.fpath, self.ename)
         output_path = os.path.join(self.output_path, self.ename)
@@ -34,11 +35,16 @@ class RunHandbrakeCli():
             stop_time = (self._get_length_in_seconds() - 8) - start_time
         if not quality:
             quality = "22.0"
+        if not audio_encoder:
+            audio_encoder = "flac24"
+        if not gain:
+            gain = 5
         command = shlex.split(f"HandBrakeCLI -i \
                    \"{input_path}\" \
                    -o \"{output_path}\" \
                    --turbo --two-pass --start-at seconds:{start_time} \
-                   --stop-at seconds:{stop_time} --quality {quality}")
+                   --stop-at seconds:{stop_time} --quality {quality} \
+                   --aencoder {audio_encoder} --gain {gain}")
         return command
 
     def run(self, command=""):
