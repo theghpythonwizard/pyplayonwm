@@ -38,5 +38,3 @@ class RunHandbrakeCli():
                 return outvar.decode('utf-8').strip()
         except KeyboardInterrupt:
             sys.exit(1)
-            # process.kill()
-            # return "KeyboardInterrupt"

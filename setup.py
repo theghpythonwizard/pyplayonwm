@@ -2,7 +2,8 @@ from setuptools import setup, find_packages
 
 install_requires = [
     "tox==3.23.1",
-    "pytest==6.2.4"
+    "pytest==6.2.4",
+    'opencv-python==4.5.3.56'
 ]
 
 setup(
