@@ -3,9 +3,16 @@ YELLOW='\e[33m'
 GREEN='\033[32m'
 RESET='\e[0m'
 
+base_directory="pyplayonwm"
+full_path="pyplayonwm/pyplayonwm"
 
-if [[ $PWD != *pyplayonwm ]]; then
-    printf "%b%s%b\n" "$RED" "cd to pyplayonwm before running" "$RESET"
+if [[ $PWD != *"$base_directory" ]]; then
+    printf "%b%s%b\n" "$RED" "cd to the top level pyplayonwm before running" "$RESET"
+    exit 1
+fi
+
+if [[ $PWD == *"$full_path" ]]; then
+    printf "%b%s%b\n" "$RED" "cd to the top level pyplayonwm before running" "$RESET"
     exit 1
 fi
 
@@ -25,5 +32,3 @@ pip install -r requirements.txt
 
 text="Virtual env was setup. run 'source venv_pyplayon/bin/activate' from the top level 'pyplayonwm' directory before use."
 printf "%b%s%b\n" "$YELLOW" "$text" "$RESET"
-
-echo "got here"
