@@ -27,6 +27,21 @@ else
     printf "%b%s%b\n" "$GREEN" "venv_directory=$VIRTUAL_ENV" "$RESET" || printf "%b%s%b\n" "$RED" "venv does not exist" "$RESET"
 fi
 
+if ! command -v brew &> /dev/null; then
+    echo "brew is not installed. Installing..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+else
+    echo "brew is installed. Continuing..."
+fi
+
+#check if ffmpeg is installed
+if brew ls --versions ffmpeg > /dev/null; then
+    printf "%b%s%b\n" "$GREEN" "ffmpeg is installed with Homebrew" "$RESET"
+else
+    printf "%b%s%b\n" "$YELLOW" "installing ffmpeg with Homebrew" "$RESET"
+    brew install ffmpeg
+fi
+
 python -m pip install --upgrade pip
 pip install -r requirements.txt
 
