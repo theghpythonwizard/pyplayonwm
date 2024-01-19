@@ -1,23 +1,18 @@
-from moviepy.editor import VideoFileClip
+from moviepy.video.io.VideoFileClip import VideoFileClip
 
 __all___ = ['EpisodeMetadata']
 
-class EpisodeMetadata:
+class VideoMetadata:
 
     def __init__(self, fpath):
-        self.cap = VideoFileClip(fpath)
+        self.vf = VideoFileClip(fpath)
 
-    def _episode_duration(self):
-        duration = self.cap.duration
-        if duration:
-            return duration
-        else:
-            return 0
-
-    def _episode_frames(self):
-        # frame = self.cap.get_frame()
-        # if frame:
-        #     return frame
-        # else:
-        #     return 0
-        pass
+    def _metadata(self):
+        video_info = {
+            'duration': self.vf.duration,
+            'width': self.vf.size[0],
+            'height': self.vf.size[1],
+            'fps': self.vf.fps
+        }
+        self.vf.close()
+        return video_info

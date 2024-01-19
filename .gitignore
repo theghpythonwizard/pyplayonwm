@@ -3,4 +3,6 @@
 
 processed_files.txt
 unprocessed_files.txt
+processed/*
+unprocessed/*
 .secrets

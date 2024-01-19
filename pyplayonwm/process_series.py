@@ -3,7 +3,7 @@ import shlex
 import subprocess
 import sys
 
-from .tools._episode_metadata import EpisodeMetadata
+from .tools._episode_metadata import VideoMetadata
 from .tools._install_handbrake import HandBrakeInstaller
 
 
@@ -14,6 +14,7 @@ class RunHandbrakeCli():
         self.ename = ename
         self.output_path = output_path
         installer = HandBrakeInstaller()
+        self.vfi = VideoMetadata(os.path.join(fpath, ename))
         if installer.handbrake_installed():
             pass
         else:
@@ -21,8 +22,7 @@ class RunHandbrakeCli():
     
 
     def _get_length_in_seconds(self):
-        cap = EpisodeMetadata(os.path.join(self.fpath,self.ename))
-        return cap._episode_duration()
+        return self.vfi['duration']
 
     def _generate_hb_command(self, start_time=0, stop_time=0, quality=0,
                              audio_encoder="", gain=0):
