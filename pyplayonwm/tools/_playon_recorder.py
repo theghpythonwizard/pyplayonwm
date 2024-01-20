@@ -89,11 +89,11 @@ class PlayOnRecorder:
             if not os.path.exists(full_file_path):
                 with open(full_file_path, 'wb') as video_file:
                     video_file.write(response.content)
-                return True
+                return (response.status_code, True)
             else:
                 print(self.sc.yellow_string(f"File already exists: {full_file_path}"))
                 print(self.sc.yellow_string("To reattempt, delete the file and try again."))
-                return False
+                return (response.status_code, False)
         else:
             return False
         

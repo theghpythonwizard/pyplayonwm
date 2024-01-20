@@ -4,7 +4,7 @@ import subprocess
 import sys
 
 from .tools._episode_metadata import VideoMetadata
-from .tools._install_handbrake import HandBrakeInstaller
+from ._install_handbrake import HandBrakeInstaller
 
 
 class RunHandbrakeCli():

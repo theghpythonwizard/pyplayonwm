@@ -32,4 +32,35 @@ class Helpers():
         with open(unprocessed_path, "w") as f:
             for i in files_to_process:
                 f.write(i + "\n")
+
+    def _move_filename_from_unprocessed_tracker_to_processed_tracker(self, filename):
+        if filename.endswith(".mp4"):
+            filename = filename[:-4]
+        unprocessed_path = os.path.join(self.git_root, "data", "unprocessed_files.txt")
+        processed_path = os.path.join(self.git_root, "data", "processed_files.txt")
+        unprocessed_files = []
+        processed_files = []
+        with open(unprocessed_path, "r") as f:
+            lines = f.readlines()
+            unprocessed_files = [i.rstrip() for i in lines if i != "\n"]
+        with open(processed_path, "r") as f:
+            lines = f.readlines()
+            processed_files = [i.rstrip() for i in lines if i != "\n"]
+
+        for uf in unprocessed_files:
+            if uf == filename:
+                unprocessed_files.remove(uf)
+                processed_files.append(uf)
+                break
+        
+        with open(unprocessed_path, "w") as f:
+            for line in unprocessed_files:
+                f.write(line + "\n")
+        with open(processed_path, "w") as f:
+            for line in processed_files:
+                f.write(line + "\n")
+
+    def _delete_unprocessed_recording_after_processing(self, filename):
+        unprocessed_path = os.path.join(self.git_root, "unprocessed", filename)
+        os.remove(unprocessed_path)
         

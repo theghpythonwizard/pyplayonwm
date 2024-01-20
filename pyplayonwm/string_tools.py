@@ -13,3 +13,6 @@ class StringColor:
     
     def green_string(self, string):
         return GreenString(string)._color_string()
+    
+    def cyan_string(self, string):
+        return CyanString(string)._color_string()

@@ -1,6 +1,7 @@
 RED = '\033[91m'
 YELLOW = '\033[93m'
 GREEN = '\033[92m'
+CYAN = '\033[96m'
 RESET = '\033[0m'
 
 class ColoredString:
@@ -25,3 +26,7 @@ class GreenString(ColoredString):
         
     def _color_string(self):
         return f"{GREEN}{self.string}{RESET}"
+    
+class CyanString(ColoredString):
+    def _color_string(self):
+        return f"{CYAN}{self.string}{RESET}"

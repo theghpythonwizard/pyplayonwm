@@ -8,6 +8,7 @@ class HandBrakeInstaller:
 
     def __init__(self):
         apt_repository_cmd = 'sudo add-apt-repository ppa:stebbins/handbrake-releases -y'
+        # apt_repository_cmd = 'sudo add-apt-repository ppa:stebbins/handbrake-releases -y'
         apt_update_cmd = 'sudo apt-get update -y'
         handbrake_install_cmd = 'sudo apt install handbrake-cli handbrake-gtk -y'
         carriage_return = shlex.split('echo -e -n "\n"')

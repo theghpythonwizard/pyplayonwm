@@ -39,3 +39,9 @@ class HelperTools():
         
         def download_url(self, url, expires, signature, key_pair_id):
             return self.pr._gen_cloudfront_download_url(url, expires, signature, key_pair_id)
+        
+        def remove_file_from_unprocessed_tracker(self, filename):
+            return self.h._move_filename_from_unprocessed_tracker_to_processed_tracker(filename)
+        
+        def delete_after_processing(self, filename):
+            self.h._delete_unprocessed_recording_after_processing(filename)
