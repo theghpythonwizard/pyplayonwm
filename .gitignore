@@ -9,3 +9,4 @@ unprocessed/*
 .secrets
 .plex_secrets
 *pyplayonwm/tools/plex/config
+*.log
