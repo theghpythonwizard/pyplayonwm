@@ -2,6 +2,7 @@ from moviepy.video.io.VideoFileClip import VideoFileClip
 
 __all___ = ['EpisodeMetadata']
 
+
 class VideoMetadata:
 
     def __init__(self, fpath):

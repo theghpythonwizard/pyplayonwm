@@ -19,14 +19,13 @@ class RunHandbrakeCli():
             pass
         else:
             installer.install_handbrake()
-    
 
     def _get_length_in_seconds(self):
         return self.vfi['duration']
 
     def _generate_hb_command(self, start_time=0, stop_time=0, quality=0,
                              audio_encoder="", gain=0):
-        self.ename = self.ename.replace("'","\'")
+        self.ename = self.ename.replace("'", "\'")
         input_path = os.path.join(self.fpath, self.ename)
         output_path = os.path.join(self.output_path, self.ename)
         if not start_time:
@@ -53,8 +52,8 @@ class RunHandbrakeCli():
         print(" ".join(command))
         try:
             process = subprocess.Popen(command,
-                                    stdout=subprocess.PIPE,
-                                    stderr=subprocess.PIPE)
+                                       stdout=subprocess.PIPE,
+                                       stderr=subprocess.PIPE)
             outvar, err = process.communicate()
             if len(err) != 0:
                 return err.decode("utf-8")

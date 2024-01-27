@@ -1,15 +1,14 @@
 import os
-import re
-import sys
 from pathlib import Path
 
 from .tools._episode_metadata import VideoMetadata
 from pyplayonwm.string_tools import StringColor
 from moviepy.video.io.VideoFileClip import VideoFileClip
 
+
 class StripPlayonWatermarks():
 
-    def __init__(self, 
+    def __init__(self,
                  full_input_file_path,
                  execution_directory="",
                  full_output_file_path="",
@@ -45,4 +44,3 @@ class StripPlayonWatermarks():
         trimmed_clip.write_videofile(self.output_file, codec='libx264', audio_codec='aac')
 
         video_clip.close()
-    
