@@ -1,11 +1,11 @@
 import os
 import re
 
+
 class Rename:
     def __init__(self, path):
         self.path_to_file = path
         self.dirname = os.path.dirname(path)
-
 
     def _get_file_name(self):
         return os.path.basename(self.path_to_file)

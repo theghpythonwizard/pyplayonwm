@@ -3,4 +3,10 @@
 
 processed_files.txt
 unprocessed_files.txt
+bad_recordings.csv
+processed/*
+unprocessed/*
 .secrets
+.plex_secrets
+*pyplayonwm/tools/plex/config
+*.log
