@@ -19,8 +19,10 @@ from pyplayonwm import (
 
 from pyplayonwm.string_tools import StringColor
 
+git_root = helpers.HelperTools().git_root()
+log_file_path = os.path.join(git_root, "logging", "pyplayonwm.log")
 logger = logging.getLogger(__name__)
-logger = LoggerDefault(log_file="pyplayonwm.log").set_logger(logger)
+logger = LoggerDefault(log_file=log_file_path).set_logger(logger)
 
 PLATFORM = platform.platform().split("-")[0]
 
@@ -176,7 +178,28 @@ class ApiDownloader:
 
 
 def debug():
-    pass
+    # this is garbage code for testing
+    plex = plex_tools.PlexTools()
+    plex_token = plex.get_plex_token()
+    base_url = plex.base_url
+    libraries = plex.get_library(plex_token, base_url)
+    # movie_libary = plex.get_movie_library(plex_token, base_url, libraries)
+    series_library = plex.get_series_library(plex_token, base_url, libraries)
+    season_library = plex.get_seasons_library_from_series(
+        plex_token, base_url, "The Office (US)", series_library
+    )
+    episode_library = plex.get_episodes_from_season(plex_token, base_url, "1", season_library)
+    ep1 = episode_library['MediaContainer']['Video'][0]
+    response = plex.change_series_episode_title(plex_token, base_url, ep1)
+    print(response)
+    # response = plex.refresh_episode_metadata(plex_token, base_url, ep1)
+    # print(response)
+    # print(movie_libary.text)
+    # import xmltodict
+    # import xml.dom.minidom
+    # xml_output = xml.dom.minidom.parseString(xmltodict.unparse(library)) \
+    #     .toprettyxml(encoding='UTF-8').decode('utf-8')
+    # print(xml_output)
 
     exit(0)
 
