@@ -258,57 +258,7 @@ class ApiDownloader:
 
 
 def debug():
-    # this is garbage code for testing
-    # plex = plex_tools.PlexTools()
-    # plex_token = plex.get_plex_token()
-    # base_url = plex.base_url
-    # libraries = plex.get_library(plex_token, base_url)
-    # # movie_libary = plex.get_movie_library(plex_token, base_url, libraries)
-    # series_library = plex.get_series_library(plex_token, base_url, libraries)
-    # season_library = plex.get_seasons_library_from_series(
-    #     plex_token, base_url, "The Office (US)", series_library
-    # )
-    # single_season_library = plex.get_episodes_from_season(plex_token, base_url, "8", season_library)
-    # ep1 = single_season_library['MediaContainer']['Video'][0]
-    # # response = plex.change_series_episode_title(plex_token, base_url, ep1)
-    # metadata_correct = plex.is_metadata_correct(single_season_library)
-    # # metadata_correct = False
-    # print(f"Metadata correct: {metadata_correct}")
-    # if not metadata_correct:
-    #     fields_for_update = plex.filter_episodes_for_update(plex_token, base_url, single_season_library)
-    # if not args.dry_run:
-    #     logger.info("Updating Metadata on Plex Server.")
-    #     try:
-    #         for i in fields_for_update:
-    #             pass
-    #             update_metadata = plex.change_series_episode_title(plex_token,
-    #                                                                base_url,
-    #                                                                i['episode_id'],
-    #                                                                i['title'],
-    #                                                                i['sort_title'],
-    #                                                                i['originally_available'],
-    #                                                                i['episode_summary'])
-    #             sleep(.5)
-    #             print(update_metadata)
-    #     except UnboundLocalError as e:
-    #         if "fields_for_update" in str(e):
-    #             print("No metadata to update.")
-    #             exit(0)
-    #         else:
-    #             print(e)
-    #             exit(1)
-    # pp(fields_for_update)
-    # season_needs_metadata_update = plex.filter_episodes_for_update(plex_token, base_url, single_season_library)
-    # print(response)
-    # response = plex.refresh_episode_metadata(plex_token, base_url, ep1)
-    # print(response)
-    # print(movie_libary.text)
-    # import xmltodict
-    # import xml.dom.minidom
-    # xml_output = xml.dom.minidom.parseString(xmltodict.unparse(library)) \
-    #     .toprettyxml(encoding='UTF-8').decode('utf-8')
-    # print(xml_output)
-
+    logger.info("Debugging")
     exit(0)
 
 
