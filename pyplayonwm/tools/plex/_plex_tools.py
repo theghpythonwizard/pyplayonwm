@@ -10,8 +10,10 @@ from ...logger_default import LoggerDefault
 from ...string_tools import StringColor
 from ...helpers import HelperTools
 
+git_root = HelperTools().git_root()
+log_file_path = os.path.join(git_root, "logging", "pyplayonwm.log")
 logger = logging.getLogger(__name__)
-logger = LoggerDefault(log_file="pyplayonwm.log").set_logger(logger)
+logger = LoggerDefault(log_file=log_file_path).set_logger(logger)
 
 
 class Plex:
