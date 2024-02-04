@@ -116,8 +116,6 @@ class Plex:
         return False
 
     def _change_series_episode_title(self, token, base_url, episode_id, title, sort_title, originally_available, summary):
-        # PUT https://10-60-2-53.cc91b1338a6441cfba05d16c3c377acb.plex.direct:32400/library/sections/2/all?type=4&id=11979&includeExternalMedia=1&title.value=Back%20from%20Vacation%20Test&titleSort.value=Back%20from%20Vacation%20Test&summary.value=Karen%20and%20Jim%20had%20their%20first%20big%20fight%20in%20the%20relationship.%20Karen%20had%20been%20living%20in%20a%20hotel%20since%20taking%20her%20job%20in%20Scranton.%20When%20she%20decided%20to%20live%20next%20door%20to%20Jim%2C%20he%20took%20it%20as%20the%20next%20step%20to%20living%20together%20and%20that%20was%20too%20fast.%20She%20was%20not%20pleased%20with%20his%20response.%20Test.&originallyAvailableAt.value=2008-01-04&title.locked=1&titleSort.locked=1&originallyAvailableAt.locked=1&summary.locked=1&X-Plex-Product=Plex%20Web&X-Plex-Version=4.122.0&X-Plex-Client-Identifier=ms1zznjif89n4y2yge91zgsq&X-Plex-Platform=Chrome&X-Plex-Platform-Version=120.0&X-Plex-Features=external-media%2Cindirect-media%2Chub-style-list&X-Plex-Model=hosted&X-Plex-Device=OSX&X-Plex-Device-Name=Chrome&X-Plex-Device-Screen-Resolution=1920x934%2C1920x1080&X-Plex-Token=MR2F3K9781grnyPC_3dt&X-Plex-Language=en&X-Plex-Session-Id=e3638848-278c-48bc-8cac-b8fca68c2660
-
         # I'm going to always set type as 4, because I don't really know what it does, but it works
         # I can inspect other updates to make sure in the future
         # I should also pass in the library id, but I'm going to hard code it for now, because I know it works in my scenario
