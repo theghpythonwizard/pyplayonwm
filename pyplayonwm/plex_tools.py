@@ -32,5 +32,11 @@ class PlexTools:
     def refresh_episode_metadata(self, token, base_url, episode_data: dict):
         return self.plex._refresh_episode_metadata(token, base_url, episode_data)
 
-    def change_series_episode_title(self, token, base_url, episode_data: dict):
-        return self.plex._change_series_episode_title(token, base_url, episode_data)
+    def change_series_episode_title(self, token, base_url, episode_id, title, sort_title, originally_available, summary):
+        return self.plex._change_series_episode_title(token, base_url, episode_id, title, sort_title, originally_available, summary)
+
+    def is_metadata_correct(self, single_season_data: dict):
+        return self.plex._is_metadata_correct(single_season_data)
+
+    def filter_episodes_for_update(self, token, base_url, single_season_data: dict):
+        return self.plex._filtered_data_for_updates(token, base_url, single_season_data)

@@ -19,10 +19,10 @@ class PlayOnLogin:
         playon_login_email = os.environ.get('PLAYON_LOGIN_EMAIL')
         playon_login_password = os.environ.get('PLAYON_LOGIN_PASSWORD')
         if not playon_login_email:
-            print('run `export PLAYON_LOGIN_EMAIL={playon email used to login to web ui}`')
+            print('run `export PLAYON_LOGIN_EMAIL=$(sed -n 1p .secrets)`')
             exit(1)
         if not playon_login_password:
-            print('run `export PLAYON_LOGIN_PASSWORD={playon password used to login to web ui}`')
+            print('run `export PLAYON_LOGIN_PASSWORD=$(sed -n 2p .secrets)`')
             exit(1)
 
         self.login_payload = {

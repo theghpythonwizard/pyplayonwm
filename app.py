@@ -34,6 +34,86 @@ def run_cmd(file_path, episode_name, output_dir):
         return output
 
 
+class MetaDataUpdater:
+
+    def __init__(self, series="", season="", movie=""):
+        self.plex = plex_tools.PlexTools()
+        self.plex_token = self.plex.get_plex_token()
+        self.base_url = self.plex.base_url
+        self.series = series
+        self.season = season
+        self.movie = movie
+
+    def libraries(self):
+        libraries = self.plex.get_library(self.plex_token, self.base_url)
+        return libraries
+
+    def movie_library(self):
+        libararies = self.libraries()
+        movie_libary = self.plex.get_movie_library(self.plex_token, self.base_url, libararies)
+        return movie_libary
+
+    def series_library(self):
+        libararies = self.libraries()
+        series_library = self.plex.get_series_library(self.plex_token, self.base_url, libararies)
+        return series_library
+
+    def season_library(self):
+        series_library = self.series_library()
+        season_library = self.plex.get_seasons_library_from_series(
+            self.plex_token, self.base_url, self.series, series_library
+        )
+        return season_library
+
+    def single_season_library(self, season_library=None):
+        if season_library is None:
+            season_library = self.season_library()
+        single_season_library = self.plex.get_episodes_from_season(self.plex_token, self.base_url, self.season, season_library)
+        return single_season_library
+
+    def update_single_season_metadata(self, library):
+        single_season_library = library
+        metadata_correct = self.plex.is_metadata_correct(single_season_library)
+        logger.info(f"Is Metadata Correct: {metadata_correct}")
+        if not metadata_correct:
+            fields_for_update = self.plex.filter_episodes_for_update(self.plex_token, self.base_url, single_season_library)
+        if not args.dry_run:
+            logger.info("Updating Metadata on Plex Server.")
+            try:
+                for i in fields_for_update:
+                    pass
+                    update_metadata = self.plex.change_series_episode_title(self.plex_token,
+                                                                            self.base_url,
+                                                                            i['episode_id'],
+                                                                            i['title'],
+                                                                            i['sort_title'],
+                                                                            i['originally_available'],
+                                                                            i['episode_summary'])
+                    if update_metadata:
+                        logger.info(string_color.green_string("Metadata Updated."))
+            except UnboundLocalError as e:
+                if "fields_for_update" in str(e):
+                    print("No metadata to update.")
+                    exit(0)
+                else:
+                    print(e)
+                    exit(1)
+
+    # I don't really need this right now, but I'm keeping it for reference in case I need it later.
+    # pp(fields_for_update)
+    # season_needs_metadata_update = plex.filter_episodes_for_update(plex_token, base_url, single_season_library)
+    # print(response)
+    # response = plex.refresh_episode_metadata(plex_token, base_url, ep1)
+    # print(response)
+    # print(movie_libary.text)
+    # import xmltodict
+    # import xml.dom.minidom
+    # xml_output = xml.dom.minidom.parseString(xmltodict.unparse(library)) \
+    #     .toprettyxml(encoding='UTF-8').decode('utf-8')
+    # print(xml_output)
+    # exit(0)
+
+
 class ApiDownloader:
     def __init__(self, downloader, playon_token):
         self.downloader = downloader
@@ -179,19 +259,47 @@ class ApiDownloader:
 
 def debug():
     # this is garbage code for testing
-    plex = plex_tools.PlexTools()
-    plex_token = plex.get_plex_token()
-    base_url = plex.base_url
-    libraries = plex.get_library(plex_token, base_url)
-    # movie_libary = plex.get_movie_library(plex_token, base_url, libraries)
-    series_library = plex.get_series_library(plex_token, base_url, libraries)
-    season_library = plex.get_seasons_library_from_series(
-        plex_token, base_url, "The Office (US)", series_library
-    )
-    episode_library = plex.get_episodes_from_season(plex_token, base_url, "1", season_library)
-    ep1 = episode_library['MediaContainer']['Video'][0]
-    response = plex.change_series_episode_title(plex_token, base_url, ep1)
-    print(response)
+    # plex = plex_tools.PlexTools()
+    # plex_token = plex.get_plex_token()
+    # base_url = plex.base_url
+    # libraries = plex.get_library(plex_token, base_url)
+    # # movie_libary = plex.get_movie_library(plex_token, base_url, libraries)
+    # series_library = plex.get_series_library(plex_token, base_url, libraries)
+    # season_library = plex.get_seasons_library_from_series(
+    #     plex_token, base_url, "The Office (US)", series_library
+    # )
+    # single_season_library = plex.get_episodes_from_season(plex_token, base_url, "8", season_library)
+    # ep1 = single_season_library['MediaContainer']['Video'][0]
+    # # response = plex.change_series_episode_title(plex_token, base_url, ep1)
+    # metadata_correct = plex.is_metadata_correct(single_season_library)
+    # # metadata_correct = False
+    # print(f"Metadata correct: {metadata_correct}")
+    # if not metadata_correct:
+    #     fields_for_update = plex.filter_episodes_for_update(plex_token, base_url, single_season_library)
+    # if not args.dry_run:
+    #     logger.info("Updating Metadata on Plex Server.")
+    #     try:
+    #         for i in fields_for_update:
+    #             pass
+    #             update_metadata = plex.change_series_episode_title(plex_token,
+    #                                                                base_url,
+    #                                                                i['episode_id'],
+    #                                                                i['title'],
+    #                                                                i['sort_title'],
+    #                                                                i['originally_available'],
+    #                                                                i['episode_summary'])
+    #             sleep(.5)
+    #             print(update_metadata)
+    #     except UnboundLocalError as e:
+    #         if "fields_for_update" in str(e):
+    #             print("No metadata to update.")
+    #             exit(0)
+    #         else:
+    #             print(e)
+    #             exit(1)
+    # pp(fields_for_update)
+    # season_needs_metadata_update = plex.filter_episodes_for_update(plex_token, base_url, single_season_library)
+    # print(response)
     # response = plex.refresh_episode_metadata(plex_token, base_url, ep1)
     # print(response)
     # print(movie_libary.text)
@@ -233,9 +341,41 @@ if __name__ == "__main__":
         "-fp", "--files_to_process", help="a list of files to process.", required=False
     )
     parser.add_argument(
+        '-cm',
+        '--check_metadata',
+        help='check metadata on plex server for series and episodes and update with local info if incorrect.',
+        required=False,
+        action="store_true"
+    )
+    parser.add_argument(
+        '-s',
+        '--series',
+        help='Series Name e.g. "The Office (US)", must match what is on the plex server',
+        required=False
+    )
+    parser.add_argument(
+        '-se',
+        '--season',
+        help='Season Number e.g. "Season 6", must match what is on the plex server',
+        required=False
+    )
+    parser.add_argument(
+        '-m',
+        '--movie',
+        help='Movie Name e.g. "The Matrix", must match what is on the plex server',
+        required=False
+    )
+    parser.add_argument(
         "-d",
         "--debug",
         help="turn on debug logging",
+        required=False,
+        action="store_true"
+    )
+    parser.add_argument(
+        "-dr",
+        "--dry_run",
+        help="dry run. no changes will be made to the plex server",
         required=False,
         action="store_true"
     )
@@ -246,9 +386,36 @@ if __name__ == "__main__":
     video_output_path = args.output_path
     start_time_offset = args.start_offset
     files_to_process = args.files_to_process
+    check_metadata = args.check_metadata
 
     if args.debug:
         debug()
+
+    if check_metadata:
+        if args.movie:
+            logger.info(
+                StringColor().red_string(
+                    "This code is not implemented yet. Please try again later."
+                )
+            )
+            sys.exit(1)
+        if not args.series or not args.season:
+            if not args.series:
+                print("You must specify a series to check metadata.")
+            if not args.season:
+                print("You must specify a season to check metadata.")
+            parser.print_help()
+            sys.exit(1)
+
+        if args.series and args.season:
+            # metatdata updater
+            mu = MetaDataUpdater(series=args.series, season=args.season)
+            # single_season_library = mu.single_season_library()
+            season_library = mu.season_library()
+            single_season_library = mu.single_season_library(season_library)
+            mu.update_single_season_metadata(single_season_library)
+
+        sys.exit(0)
 
     string_color = StringColor()
 
