@@ -48,7 +48,8 @@ class Helpers():
             processed_files = [i.rstrip() for i in lines if i != "\n"]
 
         for uf in unprocessed_files:
-            if uf == filename:
+            print(uf, os.path.basename(filename))
+            if uf == os.path.basename(filename):
                 unprocessed_files.remove(uf)
                 processed_files.append(uf)
                 break

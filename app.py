@@ -114,6 +114,28 @@ class MetaDataUpdater:
     # exit(0)
 
 
+class CloudRecordingRemoval:
+
+    def __init__(self):
+        self.cloud_recording_removal = playon_downloader.PlayOnDownloader()
+
+    def delete_recordings(self):
+        recordings_to_delete_path = os.path.join(git_root, "data", "recordings_to_delete_from_cloud.txt")
+        with open(recordings_to_delete_path, "r") as f:
+            logger.info("Gathering list of recordings to delete from cloud storage.")
+            recordings_to_delete = [i.rstrip() for i in f.readlines()]
+        if recordings_to_delete:
+            self.cloud_recording_removal.delete_cloud_recording(logger, video_list_to_delete=recordings_to_delete)
+            exit(0)
+        else:
+            logger.info(string_color.yellow_string("No recordings to delete."))
+            exit(0)
+
+    def delete_single_recording(self, video_name):
+        self.cloud_recording_removal.delete_cloud_recording(logger, video_name_to_delete=video_name)
+        exit(0)
+
+
 class ApiDownloader:
     def __init__(self, downloader, playon_token):
         self.downloader = downloader
@@ -131,8 +153,9 @@ class ApiDownloader:
         and then use those names to determine the download url and download
         each file to pyplayonwm/unprocessed/
         """
-
+        # logger.info(f"{self.playon_token} before generation")
         self.playon_token = self.downloader.playon_token()
+        # logger.info(f"{self.playon_token} after generation")
 
         logger.info(
             string_color.cyan_string(
@@ -202,6 +225,14 @@ class ApiDownloader:
                 temp_data["file_name"] = download_file_path
                 temp_data["url"] = cloudfront_url
                 all_download_data.append(temp_data)
+            else:
+                logger.info(
+                    string_color.red_string(
+                        f'Failed to retreive download url data for "{file_name_with_extension}"'
+                    )
+                )
+                logger.info(download_data)
+                exit(1)
 
         for data in all_download_data:
             fp = data["file_name"]
@@ -316,6 +347,19 @@ if __name__ == "__main__":
         required=False
     )
     parser.add_argument(
+        "-crr",
+        "--cloud_recording_removal",
+        help="delete cloud recordings",
+        required=False,
+        action="store_true"
+    )
+    parser.add_argument(
+        "-vf",
+        "--video_file",
+        help="Name video file to delete from cloud storage",
+        required=False
+    )
+    parser.add_argument(
         "-d",
         "--debug",
         help="turn on debug logging",
@@ -366,6 +410,13 @@ if __name__ == "__main__":
             mu.update_single_season_metadata(single_season_library)
 
         sys.exit(0)
+
+    if args.cloud_recording_removal:
+        crr = CloudRecordingRemoval()
+        if args.video_file:
+            crr.delete_single_recording(args.video_file)
+        else:
+            crr.delete_recordings()
 
     string_color = StringColor()
 

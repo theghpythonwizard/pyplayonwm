@@ -5,7 +5,10 @@ import requests
 from retry import retry
 import subprocess
 import shlex
+import sys
+import time
 from typing import List
+from pprint import pprint as pp
 # from ._string_tools import RedString, YellowString, GreenString
 from ..string_tools import StringColor
 
@@ -36,6 +39,13 @@ class PlayOnLogin:
         token = token_data['data']['token']
         return token
 
+    def _login_headers(self):
+        token = self._login_token()
+        headers = {
+            'Authorization': f'Bearer {token}'
+        }
+        return headers
+
 
 class PlayOnRecorder:
 
@@ -45,10 +55,13 @@ class PlayOnRecorder:
         self.sc = StringColor()
 
     @retry(tries=2, delay=1, backoff=2)
-    def _get_recorded_list(self, token):
-        headers = {
-            'Authorization': f'Bearer {token}'
-        }
+    def _get_recorded_list(self, token="", headers=None):
+        if token:
+            headers = {
+                'Authorization': f'Bearer {token}'
+            }
+        if headers:
+            headers = headers
         try:
             response = requests.get(self.api_list_url, headers=headers)
             if response.status_code != 200:
@@ -133,8 +146,24 @@ class PlayOnRecorder:
             fps = float(fps_match.group(1))
             return fps
 
-#   CDS_HOSTNAME = 'cds.playonrecorder.com'
-#   CDS_BASE = f'https://{CDS_HOSTNAME}/api/v6/'
+    def _generate_delete_url(self, id):
+        return f"https://api.playonrecorder.com/v3/library/{id}"
 
-#   CDS_HOSTNAME_LOCAL = 'cds-au.playonrecorder.com'
-#   CDS_BASE_LOCAL = f'https://{CDS_HOSTNAME_LOCAL}/api/v6/'
+    def _delete_processed_recording_from_cloud_storage(self, logger, video_name_to_delete="", video_list_to_delete=[], headers={}):
+        # DELETE https://api.playonrecorder.com/v3/library/14866867 HTTP/2.0
+        if not headers:
+            headers = PlayOnLogin()._login_headers()
+        recorded_list = self._get_recorded_list(headers=headers)
+        if not video_name_to_delete and not video_list_to_delete:
+            logger.info("No video name provided, provide a video name to delete or list of names to delete.")
+            sys.exit(1)
+        for video in video_list_to_delete:
+            video_id = self._get_id_from_name(video, recorded_list['data']['entries'])
+            if video_id is not None:
+                logger.info(self.sc.red_string(f"Preparing to delete {video} from cloud storage. You have 10 seconds to cancel."))
+                time.sleep(10)
+                delete_url = self._generate_delete_url(video_id)
+                response = requests.delete(delete_url, headers=headers)
+                logger.info(self.sc.green_string(f"Deletion of {video} from cloud storage is Success = {json.loads(response.text)['success']}"))
+            else:
+                logger.info(self.sc.yellow_string(f"Video {video} not found in recorded list. It must have already been deleted."))

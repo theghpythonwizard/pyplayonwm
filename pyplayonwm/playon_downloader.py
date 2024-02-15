@@ -20,3 +20,7 @@ class PlayOnDownloader:
 
     def download_content(self, url, file_name, logger):
         return self.pd._download_content(url, file_name, logger)
+
+    def delete_cloud_recording(self, logger, video_name_to_delete="", video_list_to_delete=[], headers=None):
+        return self.pd._delete_processed_recording_from_cloud_storage(logger, video_name_to_delete=video_name_to_delete,
+                                                                      video_list_to_delete=video_list_to_delete, headers=headers)

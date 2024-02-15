@@ -4,6 +4,7 @@
 processed_files.txt
 unprocessed_files.txt
 bad_recordings.csv
+recordings_to_delete_from_cloud.txt
 processed/*
 unprocessed/*
 .secrets
